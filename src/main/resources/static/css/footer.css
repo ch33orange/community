@@ -1,0 +1,31 @@
+.session_footer{
+    width: 100%;
+       position: absolute;
+        height: 20px;
+        color: lightseagreen;
+        text-align: center;
+}
+.session_footer a{
+    text-decoration: none;
+    color: lightseagreen;
+}
+.layer{
+    display: inline;
+}
+.copyright-text{
+        line-height: 20px;
+        text-align: center;
+        margin: 0 auto;
+    white-space: normal;
+}
+.icon-footer{
+    display: inline-block;
+    width: 14px;
+    height: 16px;
+    margin-right: 6px;
+    background: url('/images/reportIcon.png') 0 0 no-repeat;
+    vertical-align: middle;
+    margin-top: -4px;
+}
+
+

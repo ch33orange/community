@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!-- 设置一些配置信息 -->
+        <!--        分页用的 给了limit 和 size 下次别乱开始-->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+        <!-- 是否去除自动生成的注释，不写默认自动生成注解 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+            <property name="author" value="bluer"/>
+            <property name="dateFormat" value="yyyy/MM/dd"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://118.31.68.37:3306/codeworker?serverTimezone=GMT%2b8"
+                        userId="bluer"
+                        password="change33">
+            <!--            用来保证只生成自己选中的表,即可保证只生成自己需要的 User 类-->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.community.dataobject" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--        type是决定生成的形式  用ANNOTATEDMAPPER是没有xml的-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.community.dao"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--         enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"-->
+        <table tableName="user" domainObjectName="user">
+            <columnOverride column="icon" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>
+<!--        <table tableName="question" domainObjectName="Question">-->
+<!--            &lt;!&ndash;            text转换varchar 而且不产生withblobs&ndash;&gt;-->
+<!--            <columnOverride column="description" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+<!--        </table>-->
+<!--        <table tableName="comment" domainObjectName="Comment">-->
+<!--            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>-->
+<!--        </table>-->
+<!--        <table tableName="notification"></table>-->
+    </context>
+</generatorConfiguration>

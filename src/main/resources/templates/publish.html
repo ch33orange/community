@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>发布 - 码匠社区</title>
+    <meta http-equiv="Content-Type" content=" text/html" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/css/community.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/js/jquery-3.4.1.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/community.js" type="application/javascript"></script>
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+<div th:replace="navigation :: nav"></div>
+    <div class="container-fluid main">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    发 布</h2>
+                <hr>
+                <form th:object="${question}" action="/publish" method="POST">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="form-group ">
+                        <label for="title">分享标题 (简单扼要) :</label>
+                        <input type="text" class="form-control " th:field="*{title}"
+                               name="title" id="title" placeholder="分享标题......">
+                        <span class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" role="alert"
+                              th:if="${#fields.hasErrors('title')}" th:errors="*{title}">
+                        </span>
+                    </div>
+                    <label for="description">分享描述 (必填,请参照右侧提示) :</label>
+                    <span class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" role="alert"
+                          th:if="${#fields.hasErrors('description')}" th:errors="*{description}">
+                    </span>
+                    <div class="form-group" id="question-editor">
+                        <textarea name="description" th:field="*{description}" id="description" cols="30"
+                                  style="display:none;" class="form-control" ></textarea>
+                    </div>
+                    <!--                    加載md 初始化-->
+                    <script type="text/javascript">
+                        $(function () {
+                            var editor = editormd("question-editor", {
+                                width: "100%",
+                                height: "350px",
+                                path: "/js/lib/",
+                                delay: 0,
+                                watch: false,
+                                placeholder: "\n\n\n分享描述 (建议使用markdown文档形式编写!):\n" +
+                                    "如果上传图片或其他格式的文件,单个文件请勿大于6MB!\n" ,
+                                autoFocus:false,
+                                imageUpload    : true,
+                                imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                imageUploadURL : "/file/upload",
+                            });
+                        });
+                    </script>
+                    <!--                    加載md 初始化-->
+                    <div class="form-group">
+                        <label for="tag">添加标签:</label>
+                        <input type="text" class="form-control" name="tag" id="tag" th:field="*{tag}"
+                               onclick="showSelectTag()" placeholder="输入标签,以,号分隔">
+                        <span class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" role="alert"
+                              th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}">
+                        </span>
+                        <h4 class="myWraning col-lg-12 col-md-12 col-sm-12 col-xs-12" role="alert"
+                            th:if="${invalid!=null}" th:text="${invalid}">
+                        </h4>
+                        <!--                        标签填写处-->
+                        <div id="select-tag" class="tag-tab publish-tag-tab" onmouseenter="fadeInTag()"
+                             onmouseleave="hideSelectTag()">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" th:each="selectCategory,selectCategoryStat: ${cacheTags}"
+                                    th:class="${selectCategoryStat.first ? 'active' : ''}">
+                                    <a th:text="${selectCategory.categoryName}"
+                                       th:href="${'#'+selectCategory.categoryName}" aria-controls="home" role="tab"
+                                       data-toggle="tab">
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div role="tabpanel tag-pane"
+                                     th:each="selectCategory: ${cacheTags}"
+                                     th:id="${selectCategory.categoryName}"
+                                     th:class="${selectCategoryStat.first ? 'active tag-pane' : 'tag-pane'}">
+                                        <span class="label label-info question-tag"
+                                              th:each="selectTag : ${selectCategory.tags}">
+                                        <span class="glyphicon glyphicon-tags" th:text="${' '+selectTag}"
+                                              onclick="selectTag(this)" th:data-tag="${selectTag}">
+                                        </span>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid main">
+                        <div class="row">
+                        <span class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" role="alert"
+                              autocapitalize=""
+                              th:if="${loginError!=null}" th:text="${loginError}">
+                        </span>
+                            <button type="submit" class="btn btn-success pull-right">发布</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h1>分享发布指南</h1>
+                <hr>
+                <div class="list-group-item">
+                    <h4 class="list-group-item-text">分享标题 : <br>请用精简的语言描述您发布的分享,不超过25字。</h4>
+                    <h4 class="list-group-item-text">分享描述 : <br>详细补充您的分享内容,并确保分享描述清晰直观,并补充一些相关的资料。</h4>
+                    <h4 class="list-group-item-text">选择标签 : <br>在选项中选取一个或多个合适的标签,目前尚不支持自定义。</h4>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                    <h2>关注我</h2>
+                    <img src="/images/info.png" class="img-info img-thumbnail info img-responsive" alt="Responsive image">
+                </div>
+            </div>
+        </div>
+    </div>
+<div th:replace="footer :: foot"></div>
+</body>
+
+</html>

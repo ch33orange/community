@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${sectionName}"></title>
+    <meta http-equiv="Content-Type" content=" text/html" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/css/community.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/js/jquery-3.4.1.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:replace="navigation :: nav"></div>
+<div class="container-fluid profile main">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <h2>
+                    <img src="/images/favicon.ico" class="img-logo img-responsive" alt="Responsive image">
+                    <span th:text="${sectionName}"></span>
+                </h2>
+                <hr>
+                <!--                我的分享-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'questions'}">
+                    <div class="media" th:each="questions: ${pagination.data}">
+                        <div class="media-left">
+                            <a th:href="@{'/question/'+${questions.id}}">
+                                <img class="media-object img-rounded"
+                                     th:src="${ ( questions.icon == '' || questions.icon == null)? '/images/default.png' : questions.icon}"
+                                     alt="该用户头像读取异常">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <a th:href="@{'/question/'+${questions.id}}"
+                                   th:text="${questions.title}"></a>
+                            </h4>
+                            <br>
+                            <span>
+                    <span th:text="${questions.commentCount}"></span>回复 ~
+                        <span th:text="${questions.viewCount}"></span>次浏览 ~
+                        <span th:text="${questions.likeCount}"></span>个点赞 ~
+                        <span
+                                th:text="${#dates.format(questions.gmtCreated, 'yyyy-MM-dd HH:mm')}"></span>
+                        <a th:href="@{'/publish/'+${questions.id}}" class="community-menu">
+                            <span class="glyphicon glyphicon-pencil img-span"></span>编辑
+                        </a>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <!--                回复通知内容-->
+                <div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'replies'}">
+                    <div class="media" th:each="notification: ${pagination.data}">
+                        <div class="media-body">
+                            <p class="media-heading">
+                                <span th:text="${notification.notifierName +' ' + notification.typeName +' '}"></span>
+                                <a th:href="@{'/notification/'+${notification.id}}" th:text="${notification.outerTitle}">
+                                </a>
+                                <span class="label label-danger" th:if="${notification.status == 0}">未读</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+<!--                修改头像-->
+                <div  th:if="${session.user.getPwd()!= null && section == 'details'}"
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <form  action="/profile/details" method="POST">
+                        <div class="form-group" id="question-editor">
+                            <label for="new-icon">头像icon的URL:</label>
+                        <input style="width: 70%;" name="icon"  id="new-icon" class="new-icon" >
+                        </div>
+                        <button type="submit">提交</button>
+                    </form>
+                </div>
+                <!--                分页导航-->
+                <div th:if="${section != 'details'}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li th:if="${pagination.showFirstPage}">
+                                <a th:href="@{/profile/{section}/(section=${section},page=1)}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:if="${pagination.showPrevious}">
+                                <a th:href="@{'/profile/'+${section}(page=${pagination.page-1})}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&lt;</span>
+                                </a>
+                            </li>
+                            <li th:each="page: ${pagination.pages}"
+                                th:class="${pagination.page == page}? 'active':''">
+                                <a th:href="@{'/profile/'+${section}(page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li th:if="${pagination.showNext}">
+                                <a
+                                        th:href="@{'/profile/'+${section}(page=${pagination.page+1})}"
+                                        aria-label="Next">
+                                    <span aria-hidden="true">&gt;</span>
+                                </a>
+                            </li>
+                            <li th:if="${pagination.showEndPage}">
+                                <a
+                                        th:href="@{'/profile/'+${section}(page=${pagination.totalPage})}"
+                                        aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class=" col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h1>通知栏</h1>
+                <div class="list-group selection">
+                    <a href="/profile/questions"
+                       th:class="${section == 'questions'}? 'list-group-item active':'list-group-item' "
+                       class="list-group-item">我的分享</a>
+                    <a href="/profile/replies"
+                       th:class="${section == 'replies'}? 'list-group-item active':'list-group-item' "
+                       class="list-group-item">最新回复
+                        <span class="badge" th:text="${session.unreadCount}"></span></a>
+                    <a th:if="${session.user.getPwd()!= null}"  href="/profile/details"
+                       th:class="${section == 'details'}? 'list-group-item active':'list-group-item' "
+                       class="list-group-item">修改头像</a>
+                </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2>关注我</h2>
+                <img src="/images/info.png" class="img-info img-responsive"
+                     alt="Responsive image">
+            </div>
+        </div>
+    </div>
+<div th:replace="footer :: foot"></div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.dao.UserExtMapper">
+    <resultMap id="BaseResultMap" type="com.community.dataobject.User">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="qq" jdbcType="VARCHAR" property="qq" />
+        <result column="bio" jdbcType="VARCHAR" property="bio" />
+        <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, icon, name, pwd, mobile, email, qq, bio, gmt_created, gmt_modified
+  </sql>
+    <select id="selectByName" parameterType="com.community.dataobject.User"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where name = #{name ,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByEmail" parameterType="com.community.dataobject.User"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where email = #{email ,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByMobile" parameterType="com.community.dataobject.User"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where mobile = #{mobile ,jdbcType=VARCHAR}
+    </select>
+    <select id="countUsers" parameterType="com.community.dataobject.User"   >
+    select
+   count (1)
+    from user
+  </select>
+</mapper>

@@ -1,0 +1,146 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(0, 13, 128);
+}
+
+p {
+    color: red;
+}
+
+/*整体*/
+.container-fluid {
+    width: 100%;
+    text-align: center;
+    padding-top: 50px;
+    min-height: 100%;
+}
+
+/*logo位置*/
+.session-header {
+    text-align: center;
+}
+
+/* logo样式 */
+.session-header img {
+    width: 70px;
+    width: 70px;
+}
+
+/* 表单矿体 */
+.session-body {
+    min-width: 310px;
+    margin-top: 30px;
+    border: 1px solid black;
+    border: 1px rgba(38, 38, 39, 0.473) solid;
+    box-shadow: 3px 3px 5px #918e8e7e;
+    padding: 0px !important;
+    border-radius: 5px;
+}
+
+/*头部*/
+.session-body-header {
+    vertical-align: bottom;
+    padding: 0 !important;
+}
+
+.session-body-header .pull-right {
+    margin-top: 33px;
+}
+
+.session-form {
+    margin-top: 40px;
+    padding: 30px 20px;
+}
+
+.form-group {
+    margin: 20px 0;
+}
+
+.form-group input {
+    width: 245px;
+    border: 1px #aaa solid;
+    border-radius: 4px;
+    background: rgba(235, 235, 238, 0.486);
+    text-align: left;
+    font-size: 15px;
+    height: 40px;
+    line-height: 10px;
+    padding: 0 20px;
+    font-weight: lighter;
+}
+
+.clearFix::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.remember {
+    text-align: center;
+    padding: 0 5px;
+}
+
+.remember #accept_term {
+    padding: 0;
+    width: 18px;
+    height: 18px;
+}
+
+
+.session-form .remember .forget {
+    color: lightsalmon;
+}
+
+#btn-submit {
+   width: 165px;
+    height: 38px;
+    background-color: rgb(254, 115, 1);
+    border: 0;
+    border-radius: 3px;
+    color: white;
+    line-height: 22px;
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+.session-form .cutLine {
+    padding: 5px;
+
+}
+
+.session-form .cutLine div {
+    float: left;
+    height: 20px;
+    width: 25%;
+    border-top: 1px solid #D6D6D6;
+    border-radius: 2%;
+    margin-top: 9px;
+    color: #999;
+    font-size: 15px;
+}
+
+.session-form .cutLine .noline {
+    border: 0px;
+    margin-top: 0px;
+    width: 50%;
+}
+
+li {
+    display: inline;
+    list-style-type: none;
+}
+
+.session-form .other img {
+    width: 49px;
+    height: auto;
+    border-radius: 50%;
+    margin: 0 10px;
+}

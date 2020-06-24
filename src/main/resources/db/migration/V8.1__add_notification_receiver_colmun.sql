@@ -1,0 +1,1 @@
+ALTER table  notification add receiver BIGINT not null ;

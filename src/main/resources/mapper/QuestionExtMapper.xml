@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.dao.QuestionExtMapper">
+    <resultMap id="BaseResultMap" type="com.community.dataobject.Question">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
+        <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify"/>
+        <result column="creator" jdbcType="BIGINT" property="creator"/>
+        <result column="comment_count" jdbcType="INTEGER" property="commentCount"/>
+        <result column="like_count" jdbcType="INTEGER" property="likeCount"/>
+        <result column="view_count" jdbcType="INTEGER" property="viewCount"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+    </resultMap>
+    <resultMap id="questionDTO" type="com.community.dto.QuestionDTO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="gmt_created" jdbcType="TIMESTAMP" property="gmtCreated"/>
+        <result column="gmt_modify" jdbcType="TIMESTAMP" property="gmtModify"/>
+        <result column="creator" jdbcType="BIGINT" property="creator"/>
+        <result column="comment_count" jdbcType="INTEGER" property="commentCount"/>
+        <result column="like_count" jdbcType="INTEGER" property="likeCount"/>
+        <result column="view_count" jdbcType="INTEGER" property="viewCount"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="bio" jdbcType="VARCHAR" property="bio"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="qq" jdbcType="VARCHAR" property="qq"/>
+    </resultMap>
+    <sql id="Extra_Column_List">
+     question.id, title, question.gmt_created, question.gmt_modify, creator,
+            comment_count, like_count, view_count, tag, description,  icon, name, bio,
+            mobile, email, qq
+  </sql>
+    <!--    更新viewCount-->
+    <update id="incView" parameterType="com.community.dataobject.Question">
+    update question
+    set
+      view_count = view_count + #{viewCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <!--    更新commentCount-->
+    <update id="incCommentCount" parameterType="com.community.dataobject.Question">
+    update question
+    set
+      comment_count = comment_count + #{commentCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <!--    更新likeCount-->
+    <update id="incLikeCount" parameterType="com.community.dataobject.Question">
+    update question
+    set
+      like_count = like_count + #{likeCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+    <!--    个人分享 自己有几个 数数-->
+    <select id="countByUserId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+     select
+        count(1)
+    from question
+    where creator = #{userid}
+  </select>
+    <!--    个人分享分页全查-->
+    <select id="listWithPagination" parameterType="com.community.dto.QuestionDTO"
+            resultMap="questionDTO">
+        select
+        <include refid="Extra_Column_List"/>
+        FROM question JOIN user ON question.creator=user.id
+        where creator = #{userid}
+        order by gmt_created desc
+        limit #{offset}, #{size}
+    </select>
+    <!--     旧的 已经弃用  全部分享 一共有几个 数数-->
+    <select id="countQuestion" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select
+            count(1)
+        from question
+  </select>
+    <!--    首页的分页全查-->
+    <select id="selectByPagination" parameterType="com.community.dto.QuestionDTO"
+            resultMap="questionDTO">
+            select
+            <include refid="Extra_Column_List"/>
+            FROM question left JOIN user ON question.creator=user.id
+            order by `like_count` DESC,gmt_modify DESC
+            limit #{offset}, #{size}
+    </select>
+    <!--    selectRelated-->
+    <select id="selectRelated" parameterType="com.community.dataobject.Question" resultMap="BaseResultMap">
+
+        select * from question where id != #{id} and tag regexp #{tag}
+    </select>
+    <!--    selectRelated-->
+    <select id="countBySearch" parameterType="com.community.dto.QuestionQueryDTO" resultType="java.lang.Integer">
+        select count(*) from question
+        <where>
+            <if test="search != null">
+                title regexp #{search}
+                or tag regexp #{search}
+            </if>
+        </where>
+    </select>
+    <select id="selectBySearch" parameterType="com.community.dto.QuestionQueryDTO"
+            resultMap="questionDTO">
+        select
+        <include refid="Extra_Column_List"/>
+        FROM question
+        Left JOIN user ON question.creator=user.id
+        <where>
+            <if test="search != null">
+                title regexp #{search} or tag regexp #{search}
+            </if>
+        </where>
+        order by `like_count` DESC,gmt_modify DESC
+        limit #{page}, #{size}
+    </select>
+
+</mapper>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>登录页面</title>
+    <meta http-equiv="Content-Type" content=" text/html" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/css/editormd.preview.min.css"/>
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/js/jquery-3.4.1.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/editormd.min.js"></script>
+    <script src="/js/lib/marked.min.js"></script>
+    <script src="/js/lib/prettify.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="session-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <!--            这里给个margin: 50px auto;-->
+            <a href="#">
+                <img src="/images/favicon.ico"
+                     alt="logo">
+            </a>
+        </div>
+        <div  class="session  col-lg-12 col-md-12  col-sm-12 col-xs-12">
+            <div class="session-body col-lg-offset-5 col-lg-2 col-md-2 col-md-offset-5 col-sm-12 col-xs-12">
+                <!--            一个居中框框 margin给 0 auto-->
+                <div class="  col-lg-12 col-md-12 col-sm-12 col-xs-12 warp">
+                    <header class="session-body-header col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h2 class="pull-left session-header-tittle">
+                            <span>登录</span>
+                        </h2>
+                        <span class="pull-right">
+                                <span class="have-account">未有账号?</span>
+                                <a href="/signup">点击注册</a>
+                    </span>
+                    </header>
+                    <form th:object="${userForm}" class="session-form"
+                          action="/login" accept-charset="UTF-8" id="new_user"
+                          method="POST">
+                        <div class="form-group name" id="name">
+                            <input th:field="*{name}" class="user_name" placeholder="请输入您的昵称"
+                                   type="text" name="name" id="rg-user_name"
+                                   onblur="checkName()">
+                        </div>
+                        <div class="form-group pwd">
+                            <input th:field="*{pwd}" class="user_pwd" id="rg-user_pwd" name="pwd"
+                                   placeholder="密码" required
+                                   onblur="checkPwd()" type="password">
+                        </div>
+                        <div class="form-group remember">
+                            <input id="accept_term" name="accept" type="checkbox">
+                            <span>记不住我</span>
+                            <a class="forget" href="#">已有账号，忘记密码？</a>
+                        </div>
+                        <button id="btn-submit" class="sub-register" type="submit">立即登录</button>
+
+                        <div class="cutLine clearFix">
+                            <div></div>
+                            <div class="noline"> 其他方式登录</div>
+                            <div></div>
+                        </div>
+                        <div class="other clearFix">
+                            <li><a href="#"><img src="/images/wechat.png"/></a></li>
+                            <li><a href="#"><img src="/images/qq.png"/></a></li>
+                            <li>
+                                <a href="https://github.com/login/oauth/authorize?client_id=d7c1e3a97c94a0b021c1&scope=user&state=1"><img
+                                        src="/images/github.png"/></a></li>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer :: foot"></div>
+</body>
+<script src="/js/login.js"></script>
+</html>

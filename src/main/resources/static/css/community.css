@@ -1,0 +1,289 @@
+
+/*滚动条*/
+/*chrome*/
+::-webkit-scrollbar{
+    width:14px; /*滚动条宽度*/
+}
+/*滚动条按钮*/
+::-webkit-scrollbar-button {
+}
+::-webkit-scrollbar-track{
+    background-color:rgba(112, 243, 216, 0.03); /*滑道全部*/
+}
+::-webkit-scrollbar-track-piece{
+    background-color: rgba(112, 243, 216, 0.03); /*滑道*/
+    -webkit-border-radius:4px; /*滑道圆角宽度*/
+}
+::-webkit-scrollbar-thumb{
+    background-color:rgba(112, 243, 216, 0.03); /*滑动条表面*/
+    border:solid 1px rgba(86, 171, 145, 0.16); /*滑动条边框*/
+    border-radius:4px; /*滑动条圆角宽度*/
+}
+/*横竖滚动条交角*/
+::-webkit-scrollbar-corner {
+    background-color: rgba(112, 243, 216, 0.03);
+}
+/*横竖滚动条交角图案*/
+::-webkit-resizer {
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+/*鼠标滑过滑动条*/
+::-webkit-scrollbar-thumb:hover{
+    background-color:rgba(112, 243, 216, 0.03);
+}
+/*滚动条*/
+
+
+/*总领*/
+html{
+    width: 100%;
+    min-height: 100%;
+}
+body {
+    background-color: #EFEFEF !important;
+    margin-bottom:20px;
+}
+
+a {
+    text-decoration: none;
+    color: #0f0f0f;
+}
+/*所有的标签样式*/
+.question-tag {
+    margin: 5px;
+    cursor: pointer;
+    white-space:normal;
+    display: inline-block;
+}
+/*nav以外的框体*/
+.main {
+    margin: 10px!important;
+    background-color: white;
+    box-shadow: rgba(168,148,58,0.2);
+    min-height: 100%;
+    padding: 20px;
+}
+.jumbotron{
+    min-height: 100%;
+}
+/*所以的圆角media*/
+.img-rounded {
+    width: 38px;
+    height: auto;
+}
+
+.media {
+    margin-bottom: 20px;
+}
+
+/*隐藏*/
+.index-hidden{
+    padding: 10px!important;
+    height: 120px;
+    overflow: hidden!important;
+    /*border-radius: 5px;*/
+    /*border: 1px solid rgba(50, 135, 86, 0.16);*/
+}
+.index-hidden:hover{
+    overflow: visible;
+    transition: overflow 2s cubic-bezier(0.25,0.1,0.25,1) 0s;
+}
+.see-more{
+    /*background-color: rgba(118, 205, 222, 0.3);*/
+    opacity: 0.6;
+    bottom: 0;
+    width: 100%;
+    /*text-align: center;*/
+    cursor: pointer;
+    padding-left: 27%;
+}
+.see-more a{
+    color: rgba(118, 205, 222, 0.93);
+    /*margin: 0 auto;*/
+}
+.see-more a:hover{
+    text-decoration: none;
+}
+.img-info {
+    width: 168px;
+    height: auto;
+}
+
+.media-object {
+    width: 58px;
+    height: auto;
+}
+
+/*所有btn*/
+.pull-right {
+    margin: 15px 0;
+}
+
+/*主页的球 logo*/
+.img-logo {
+    background-size: cover;
+    width: 38px;
+    height: auto;
+    display: inline-block !important;
+}
+
+/*微信码*/
+.img-myinfo {
+    margin: 0 20px !important;
+    background-size: cover;
+    width: 69px;
+    height: auto;
+    display: inline-block !important;
+}
+
+/*总领结束*/
+
+
+/*发布页面*/
+/*描述框*/
+.publish-desc {
+    font-size: 12px;
+    font-weight: normal;
+    color: #0f0f0f;
+}
+/*总的标签处 样式*/
+.publish-tag-tab {
+    display: none;
+    margin: 10px 0;
+    padding: 20px 0;
+}
+/*标签面板*/
+.publish-tag-tab .tab-content .tag-pane{
+    padding: 15px;
+    display: none;
+}
+.publish-tag-tab .tab-content .active{
+    display: block;
+}
+/*上面有所有的标签样式*/
+.publish-tag-tab .label-info{
+    margin: 5px;
+    cursor: pointer;
+    white-space:normal;
+    display: inline-block;
+}
+.myWraning {
+    display: inline;
+    color: red;
+    font-weight: bolder;
+}
+
+/*个人的分享页面*/
+.profile .list-group {
+    margin-top: 15px;
+}
+
+
+/*指定的question页面*/
+.question-area {
+    margin-bottom: 30px;
+}
+.question-area .label-info{
+    margin: 5px;
+    cursor: pointer;
+    white-space:normal;
+    display: inline-block;
+}
+/*question下的編輯处*/
+.community-menu {
+    color: #999;
+    font-size: 16px;
+}
+
+/*各种组件图片的样式*/
+.img-span {
+    background-size: cover;
+    width: 18px;
+    height: auto;
+    margin-right: 6px;
+    display: inline-block !important;
+}
+
+/*回复列表下点赞评论的样式*/
+.menu .img-span {
+    margin-right: 10px;
+    width: 20px;
+    height: auto;
+}
+
+.img-icon {
+    width: 38px;
+    height: auto;
+}
+
+/*回复整体列表样式*/
+.comment-list {
+    margin: 15px 0;
+    padding: 5px 10px;
+    border-bottom: 1px solid #999;
+}
+
+/*回复列表右侧文字样式*/
+.my-body {
+    padding-top: 25px;
+}
+
+/*变蓝*/
+.img-span:hover {
+    color: #1b6d85;
+    cursor: pointer;
+}
+
+/*active*/
+.active {
+    color: #1b6d85;
+    cursor: pointer;
+}
+
+.img-span-sec {
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.img-span-sec:hover {
+    color: #1b6d85;
+    cursor: pointer;
+}
+
+/*回复框*/
+.comments {
+    margin: 15px 0;
+}
+
+/*跟xn个回复下面的分割线*/
+.comment-sp {
+    margin-top: 0;
+}
+
+/*二级评论*/
+.sub-comment .btn {
+    margin: 13px 0;
+}
+
+.sub-comment {
+    border-radius: 5px;
+    margin: 15px 0;
+    padding-top: 15px;
+    border: 1px solid #eee;
+}
+
+/*右侧相关分享*/
+.question-related {
+    line-height: 25px;
+    font-size: 14px;
+    margin-left: 0px;
+    padding-left: 0;
+    list-style: none;
+}
+
+/*error*/
+.jumbotron {
+    margin: 60px;
+}
+

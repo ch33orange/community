@@ -1,0 +1,1 @@
+alter table user alter column icon set default'https://avatars1.githubusercontent.com/u/43441229?v=4' ;

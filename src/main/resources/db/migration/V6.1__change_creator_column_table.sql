@@ -1,0 +1,1 @@
+alter table question modify creator Bigint not null;
