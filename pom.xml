@@ -160,9 +160,9 @@
 <!--                <artifactId>flyway-maven-plugin</artifactId>-->
 <!--                <version>5.2.4</version>-->
 <!--                <configuration>-->
-<!--                    <url>jdbc:mysql://用自己的:3306/用自己的?serverTimezone=GMT%2b8</url>-->
-<!--                    <user>用自己的</user>-->
-<!--                    <password>用自己的</password>-->
+<!--                    <url>jdbc:mysql://118.31.68.37:3306/codeworker?serverTimezone=GMT%2b8</url>-->
+<!--                    <user>bluer</user>-->
+<!--                    <password>change33</password>-->
 <!--                </configuration>-->
 <!--                <dependencies>-->
 <!--                    <dependency>-->
