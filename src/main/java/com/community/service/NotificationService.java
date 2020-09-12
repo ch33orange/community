@@ -85,7 +85,7 @@ public class NotificationService {
         if (notification == null){
             log.error("read notification NOTIFICATION_NOT_FOUND error.{}");
             throw new CustomizeException(CustomizeErrorCode.NOTIFICATION_NOT_FOUND);
-        }if (notification.getReceiver() != user.getId()){
+        }if (!notification.getReceiver().equals(user.getId())){
             log.error("read notification not match READ_NOTIFICATION_FAIL error.{}");
             throw new CustomizeException(CustomizeErrorCode.READ_NOTIFICATION_FAIL);
         }

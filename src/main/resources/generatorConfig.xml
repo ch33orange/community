@@ -15,7 +15,7 @@
             <property name="dateFormat" value="yyyy/MM/dd"/>
         </commentGenerator>
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://118.31.68.37:3306/codeworker?serverTimezone=GMT%2b8"
+                        connectionURL="jdbc:mysql://121.196.52.244:3306/codeworker?serverTimezone=GMT%2b8"
                         userId="bluer"
                         password="change33">
             <!--            用来保证只生成自己选中的表,即可保证只生成自己需要的 User 类-->

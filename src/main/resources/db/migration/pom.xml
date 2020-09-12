@@ -160,7 +160,7 @@
 <!--                <artifactId>flyway-maven-plugin</artifactId>-->
 <!--                <version>5.2.4</version>-->
 <!--                <configuration>-->
-<!--                    <url>jdbc:mysql://118.31.68.37:3306/codeworker?serverTimezone=GMT%2b8</url>-->
+<!--                    <url>jdbc:mysql://121.196.52.244:3306/codeworker?serverTimezone=GMT%2b8</url>-->
 <!--                    <user>bluer</user>-->
 <!--                    <password>change33</password>-->
 <!--                </configuration>-->

@@ -14,8 +14,8 @@ import javax.servlet.http.*;
  * 2019/11/19
  */
 @Controller
-//@RequestMapping("${server.error.path:${error.path:/error}}") //为什么爆红????
-@RequestMapping("/error")
+@RequestMapping("${server.error.path:${error.path:/error}}") //为什么爆红????
+//@RequestMapping("/error")
 @Slf4j
 //              请注意,是因为你用了tomcat才不能进入报错页面 别乱弄tomcat进来
 public class CustomizeErrorController implements ErrorController {
@@ -25,7 +25,7 @@ public class CustomizeErrorController implements ErrorController {
         return "error";
     }
 
-    @RequestMapping(produces = MediaType.TEXT_HTML_VALUE)//,value = "/error"
+    @RequestMapping(produces = MediaType.TEXT_HTML_VALUE,value = "/error")
     public ModelAndView errorHtml(HttpServletRequest request, Model model) {
         HttpStatus status = getStatus(request);
         if (status.is4xxClientError()) {

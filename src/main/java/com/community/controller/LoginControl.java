@@ -19,8 +19,8 @@ import java.util.*;
 @Controller
 public class LoginControl {
 
-    @Autowired
-    private UserExtMapper userExtMapper;
+//    @Autowired
+//    private UserExtMapper userExtMapper;
 
     @Autowired
     private UserMapper userMapper;
