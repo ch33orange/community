@@ -12,7 +12,7 @@
 ## 工具
 [Git](https://git-scm.com/download)
 [Visual Paradigm](https://www.visual-paradigm.com)
-[mybatix](https://mybatis.org/mybatis-3/zh/index.html)
+[mybatis](https://mybatis.org/mybatis-3/zh/index.html)
 [PostMan](https://chrome.google.com/webstore/detail/coohjcphdfgbiolnekdpbcijmhambjff)
 ##脚本
 ```sql

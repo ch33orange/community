@@ -78,13 +78,70 @@ public class UCloudProvider {
                 throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
             }
         } catch (UfileClientException e) {
-            log.error("UCloud upload ClientEnd  error.{}",e);
+            log.error("UCloud upload ClientEnd  error.{}", e);
             e.printStackTrace();
             throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
         } catch (UfileServerException e) {
-            log.error("UCloud upload maybe authority Server error.{}",e);
+            log.error("UCloud upload maybe authority Server error.{}", e);
             e.printStackTrace();
             throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
         }
     }
+
+
+    public InputStream download() {
+//        String generatedFileName;
+//        String[] filePaths = fileName.split("\\.");
+//        if (filePaths.length > 1) {
+//            generatedFileName = UUID.randomUUID().toString() + "." + filePaths[filePaths.length - 1];
+//        } else {
+//            throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
+//        }
+
+        try {
+            // Bucket相关API的授权器
+            ObjectAuthorization objectAuthorization = new UfileObjectLocalAuthorization(publicKey, privateKey);
+            // 对象操作需要ObjectConfig来配置您的地区和域名后缀
+            ObjectConfig config = new ObjectConfig(region, suffix);
+
+            InputStream inputStream = UfileClient.object(objectAuthorization, config)
+                    .getStream("http://bluer.cn-sh2.ufileos.com/972579187" +
+                            ".mp4?UCloudPublicKey=tcqUCZwjLX90FZJWGGBNH9QI9wOd6_Aek9_GYCpm&Signature=SA%2FgdDe1Rc2lpaGaKeKJzDqY6HI%3D&Expires=1600776784")
+//                    .putObject(fileStream, mimeType)
+//                    .nameAs(generatedFileName)
+//                    .toBucket(bucketName)
+                    /**
+                     * 是否上传校验MD5, Default = true
+                     */
+                    //  .withVerifyMd5(false)
+                    /**
+                     * 指定progress callback的间隔, Default = 每秒回调
+                     */
+                    //  .withProgressConfig(ProgressConfig.callbackWithPercent(10))
+                    /**
+                     * 配置进度监听
+                     */
+                    .setOnProgressListener((bytesWritten, contentLength) -> {
+                    })
+                    .execute().getInputStream();
+            if (inputStream != null ) {
+//                String url = UfileClient.object(objectAuthorization, config)
+//                        //时间设置成超长的吧
+//                        .getDownloadUrlFromPrivateBucket(generatedFileName, bucketName, expires)
+//                        .createUrl();
+                return inputStream;
+            } else {
+                throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
+            }
+        } catch (UfileClientException e) {
+            log.error("UCloud upload ClientEnd  error.{}", e);
+            e.printStackTrace();
+            throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
+        } catch (UfileServerException e) {
+            log.error("UCloud upload maybe authority Server error.{}", e);
+            e.printStackTrace();
+            throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAIL);
+        }
+    }
+
 }
