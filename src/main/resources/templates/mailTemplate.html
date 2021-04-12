@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>码匠社区通知</title>
+    <meta http-equiv="Content-Type" content=" text/html" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/css/community.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/css/footer.css">
+    <script src="/js/jquery-3.4.1.js" type="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+</head>
+<body>
+<div th:text="${recevierName}+'，您好'"></div>
+<span th:text="${notifierName +' ' + typeName +' '}"></span><br>
+<span>请点击链接访问</span>
+<a th:href="@{'121.196.52.244:8080/notification/'+${id}}" th:text="${outerTitle}">
+</a>
+
+</body>
+</html>

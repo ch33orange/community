@@ -17,6 +17,7 @@ import javax.servlet.http.*;
 @RequestMapping("${server.error.path:${error.path:/error}}") //为什么爆红????
 //@RequestMapping("/error")
 @Slf4j
+
 //              请注意,是因为你用了tomcat才不能进入报错页面 别乱弄tomcat进来
 public class CustomizeErrorController implements ErrorController {
 

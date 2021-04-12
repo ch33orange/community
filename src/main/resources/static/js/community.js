@@ -83,7 +83,8 @@ function collapseComments(e) {
             e.setAttribute("data-collapse", "in");
             e.classList.add("active");
         } else {
-            $.getJSON("/comment/" + id, function (data) {
+            // $.getJSON("/comment/" + id, function (data) {
+            $.getJSON("/mqcomment/" + id, function (data) {
                 $.each(data.data.reverse(), function (index, comment) {
                     //左
                     var mediaLeftElement = $("<div/>", {

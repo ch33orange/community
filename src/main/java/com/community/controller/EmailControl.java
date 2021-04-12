@@ -49,7 +49,7 @@ public class EmailControl {
           if (userExtMapper.selectByEmail(email) != null) {
             return "2";//已经注册过的邮箱
         }
-        //邮箱格式判断 正则
+        //邮箱格式判断 正则captcha
         //定义要匹配的Email地址的正则表达式
         //其中\w代表可用作标识符的字符,不包括$. \w+表示多个
         //  \\.\\w表示点.后面有\w 括号{2,3}代表这个\w有2至3个

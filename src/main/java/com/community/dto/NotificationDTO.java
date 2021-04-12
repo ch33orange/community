@@ -18,6 +18,7 @@ public class NotificationDTO implements Serializable {
     private  Long outerId;
     //    名称
     private String  outerTitle;
+    //
     private String typeName;
     private Integer type;
 }

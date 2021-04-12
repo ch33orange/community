@@ -7,6 +7,7 @@ import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.annotation.*;
 import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.*;
@@ -24,6 +25,7 @@ public class CaptchaControl {
 
     // 为了处理httpCache响应头信息  多种客户端版本
     @RequestMapping(path = "/captcha")
+//    @Transactional(rollbackFor=Exception.class)
     public void getCaptcha(HttpServletResponse response, HttpSession session) throws IOException {
         //Set to expire far in the past.
         response.setDateHeader("Expires",0);

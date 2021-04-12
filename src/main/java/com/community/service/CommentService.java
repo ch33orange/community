@@ -5,7 +5,9 @@ import com.community.dataobject.*;
 import com.community.dto.*;
 import com.community.enums.*;
 import com.community.exception.*;
+import com.community.utils.*;
 import lombok.extern.slf4j.*;
+import org.springframework.amqp.rabbit.core.*;
 import org.springframework.beans.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
@@ -35,6 +37,9 @@ public class CommentService {
 
     @Autowired
     private NotificationMapper notificationMapper;
+
+    @Autowired
+    RabbitTemplate rabbitTemplate;
 
     //新增恢复 用上了事务
     @Transactional
@@ -84,12 +89,13 @@ public class CommentService {
             //创建通知
             createNotify(comment, dbquestion.getCreator(), commentator.getName(), dbquestion.getTitle(),
                     NotificationTypeEnum.REPLY_QUESTION.getType(), dbquestion.getId());
+
         }
     }
 
     //创建通知
     private void createNotify(Comment comment, Long receiver, String nofitierName, String outerTitle, int notificationType, Long outerId) {
-        if(receiver == comment.getCommentator()){
+        if(receiver.equals(comment.getCommentator())){
             return;
         }
         //设置通知
@@ -106,6 +112,8 @@ public class CommentService {
         notification.setNotifierName(nofitierName);
         notification.setOuterTitle(outerTitle);
         notificationMapper.insert(notification);
+        // 邮件通知
+        rabbitTemplate.convertAndSend(MqConstant.MAIL_REGISTER_EXCHANGE,MqConstant.MAIL_REGISTER_ROUTING_KEY,notification);
     }
 
     //回复列表  用example了 据说正式的话不能用不管咯 列出来
