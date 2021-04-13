@@ -77,8 +77,10 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h3 class="my-title"><span th:text="${question.commentCount}"></span> 个回复</h3>
                     <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
+                    <div  style="display:none" id="time"></div>
+                    <input style="display:none" id="forvalue" type="text" value="0" />
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
-                         th:each="comment : ${comments}">
+                         th:each="comment,commentStat : ${comments}">
                         <div class="media comment-list">
                             <div class="media-left">
                                 <a href="#">
@@ -90,14 +92,20 @@
                                 <h5 class="media-heading">
                                     <span th:text="${comment.user.name}"></span>
                                 </h5>
-                                <div id="${'comment-view-'+comment.id}">
+                                <div  th:id="${'comment-view-'+commentStat.index}">
                                     <textarea  style="display:none" th:text="${comment.content}"></textarea>
                                 </div>
                                 <!--                    加载-->
                                 <script type="text/javascript">
-                                    $(function () {
-                                        editormd.markdownToHTML("${'comment-view-'+comment.id}", {});
-                                    });
+                                    // var htm = "<input style='display:none' type='text' />";
+                                    // $('#time').append(htm);
+                                    var val = $('#forvalue').val();//forvalue是个input框 我只放了个0  我想转为数字
+                                    var double =  parseFloat(val);
+                                    console.log(double);
+                                    $('#forvalue').val(double+1);
+                                    // $(function () {
+                                    //     editormd.markdownToHTML("comment-view-"+$('#forvalue').val(), {});
+                                    // });
                                 </script>
                                 <div class="menu">
                                     <!--                        点赞-->
@@ -132,7 +140,17 @@
                         </div>
                     </div>
                 </div>
-
+                <!--                    加载-->
+                <script type="text/javascript">
+                    var val = $('#forvalue').val();
+                    for(var i=0;i<val;i++){
+                        console.log(i+"?");
+                        (function(i){
+                            var str = "comment-view-"+i;
+                            editormd.markdownToHTML(str, {});
+                        })(i);
+                    }
+                </script>
                 <!-- 回复输入框-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h3></span>提 交 回 复 </h3>
