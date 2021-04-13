@@ -90,13 +90,13 @@
                                 <h5 class="media-heading">
                                     <span th:text="${comment.user.name}"></span>
                                 </h5>
-                                <div id="comment-view">
-                                    <textarea  th:text="${comment.content}"></textarea>
+                                <div id="${'comment-view-'+comment.id}">
+                                    <textarea  style="display:none" th:text="${comment.content}"></textarea>
                                 </div>
                                 <!--                    加载-->
                                 <script type="text/javascript">
                                     $(function () {
-                                        editormd.markdownToHTML("comment-view", {});
+                                        editormd.markdownToHTML("${'comment-view-'+comment.id}", {});
                                     });
                                 </script>
                                 <div class="menu">
