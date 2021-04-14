@@ -46,6 +46,7 @@ public class MailListenerService {
     public void sendRegisterMail(Message message, Channel channel, Notification notification) throws IOException {
         NotificationDTO notificationDTO = new NotificationDTO();
         BeanUtils.copyProperties(notification,notificationDTO);
+        notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
         log.info(notificationDTO.getNotifierName()+notificationDTO.getTypeName()
                 +"您的"+notificationDTO.getOuterTitle()+":[{}]", notification.getNotifierName());
         try {

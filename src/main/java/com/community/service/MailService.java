@@ -81,7 +81,12 @@ public class MailService {
                 }
                 reveivers.add(email);
             }
+            if (reveivers.size()==0){
+                log.error("收件人队列为空，邮件发送失败", CustomizeErrorCode.MESSAGE_QUEUE_SEND_ERROR);
+                return;
+            }
             String[] toUsers = (String[]) reveivers.toArray(new String[reveivers.size()]);
+
             messageHelper.setTo(toUsers);
             messageHelper.setSubject(form.getSubject());
             messageHelper.setText(form.getText(), true);
